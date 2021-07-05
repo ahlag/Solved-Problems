@@ -69,6 +69,35 @@ def powerset_bitwise(parent_set):
         element.clear()
         
     return subsets
+
+## Recursion Alternative Approach
+## https://github.com/careercup/CtCI-6th-Edition-Python/blob/394a5b2e0ed8df465f600bd1f52c14705b4edb31/chapter_08/p04_power_set.py#L46-L60
+def powerset_recursion_alternative(parent_set):
+    subsets = [[]]
+
+    def recurse(current_set, remaining_set):
+        if len(remaining_set) == 0:  # base case
+            return
+
+        for i in range(len(remaining_set)):
+            if current_set + [remaining_set[i]] not in subsets:
+                subsets.append(current_set + [remaining_set[i]])
+                recurse(current_set + [remaining_set[i]], remaining_set[i + 1 :])
+
+    recurse([], parent_set)
+    
+    return subsets
+
+testable_functions = [powerset_recursive, powerset_backtrack, powerset_bitwise]
+
+test_cases = [({1, 2, 3}, {(), (1,), (1, 2), (1, 2, 3), (1, 3), (2,), (2, 3), (3,)})]
+
+def test_get_subsets():
+    for input_set, expected in test_cases:
+        for get_subsets in testable_functions:
+            results = get_subsets(list(input_set))
+            results = {tuple(s) for s in results}
+            assert results == expected
     
 def main():
     parent_set = [1, 2, 3]
@@ -77,6 +106,7 @@ def main():
     powerset_backtrack(parent_set, subsets)
     print(subsets)
     print(powerset_bitwise(parent_set))
+    print(powerset_recursion_alternative(parent_set))
     
 if __name__ == "__main__":
     main()
