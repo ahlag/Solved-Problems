@@ -48,10 +48,27 @@ def powerset_backtrack(parent_set, subsets, choice=[], index=None):
     
     powerset_backtrack(parent_set, subsets, choice, index-1)
     
-## Powerset bitwise
+## Powerset bitwise / Combinatronics
 ## Check Approach 2 of https://www.techiedelight.com/generate-power-set-given-set/
-def powerset_bitwise():
-    pass
+def powerset_bitwise(parent_set):
+    
+    ## N stores the total number of subsets
+    N = int(pow(2, len(parent_set)))
+    element = set()
+    subsets = []
+    
+    ## Generate each subset one by one
+    for i in range(N):
+        ## Check every bit of `i`
+        for j in range(len(parent_set)):
+            if i & (1 << j):
+                element.add(parent_set[j])
+                
+        entry = deepcopy(list(element))
+        subsets.append(entry)
+        element.clear()
+        
+    return subsets
     
 def main():
     parent_set = [1, 2, 3]
@@ -59,6 +76,7 @@ def main():
     print(powerset_recursive(parent_set))
     powerset_backtrack(parent_set, subsets)
     print(subsets)
+    print(powerset_bitwise(parent_set))
     
 if __name__ == "__main__":
     main()
