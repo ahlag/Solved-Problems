@@ -25,7 +25,6 @@ def postOrderTraverse(tree, array):
 
 import unittest
 
-
 class BST:
     def __init__(self, value):
         self.value = value
