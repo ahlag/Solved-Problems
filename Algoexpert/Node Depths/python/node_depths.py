@@ -12,6 +12,25 @@ def nodeDepths_recursiveHelper(root, depth):
 
 	return depth + nodeDepths_recursiveHelper(root.left, depth+1) + nodeDepths_recursiveHelper(root.right, depth+1)
 
+def nodeDepths_iterative(root):
+
+    sum_of_depths, depth = 0, 0
+    stack = [(root, depth)]
+
+    while stack:
+
+        node, depth = stack.pop()
+		
+        sum_of_depths += depth
+
+        if node.left is not None:
+            stack.append((node.left, depth+1))
+			
+        if node.right is not None:
+            stack.append((node.right, depth+1))
+
+    return sum_of_depths
+
 # This is the class of the input binary tree.
 class BinaryTree:
     def __init__(self, value):
@@ -19,10 +38,10 @@ class BinaryTree:
         self.left = None
         self.right = None
 
-testable_functions = [nodeDepths_recursive]
+testable_functions = [nodeDepths_recursive, nodeDepths_iterative]
 
 class TestProgram(unittest.TestCase):
-    def test_case_1(self):
+    def test_case(self):
         root = BinaryTree(1)
         root.left = BinaryTree(2)
         root.left.left = BinaryTree(4)
