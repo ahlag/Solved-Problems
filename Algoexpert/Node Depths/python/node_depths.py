@@ -23,10 +23,10 @@ def nodeDepths_iterative(root):
 		
         sum_of_depths += depth
 
-        if node.left is not None:
+        if node.left:
             stack.append((node.left, depth+1))
 			
-        if node.right is not None:
+        if node.right:
             stack.append((node.right, depth+1))
 
     return sum_of_depths
