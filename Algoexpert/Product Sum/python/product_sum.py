@@ -32,7 +32,6 @@ testable_functions = [productSum, productSum_ref]
 class TestProgram(unittest.TestCase):
     def test_case_1(self):
         test = [5, 2, [7, -1], 3, [6, [-13, 8], 4]]
-        # self.assertEqual(productSum(test), 12)
         
         for f in testable_functions:
             actual = f(test)
