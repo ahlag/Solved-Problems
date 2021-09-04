@@ -1,1 +1,0 @@
-        # self.assertEqual(productSum(test), 12)
