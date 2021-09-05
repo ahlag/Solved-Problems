@@ -1,5 +1,6 @@
 import unittest
 
+# O(2^n) time | O(n) space
 def fibonacci_recursive(n):
 
     if n == 2:
@@ -9,6 +10,7 @@ def fibonacci_recursive(n):
     else:
         return fibonacci_recursive(n-1) + fibonacci_recursive(n-2)
 
+# O(n) time | O(n) space
 def fibonacci_memo(n, memoize={1: 0, 2: 1}):
 
     if n in memoize:
@@ -17,6 +19,7 @@ def fibonacci_memo(n, memoize={1: 0, 2: 1}):
         memoize[n] = fibonacci_memo(n-1, memoize) + fibonacci_memo(n-2, memoize)
         return memoize[n]
     
+# O(n) time | O(1) space
 def fibonacci_array(n):
 
     last_two = [0, 1]
@@ -28,6 +31,7 @@ def fibonacci_array(n):
 		
     return last_two[1] if n > 1 else last_two[0]
 
+## O(n) time | O(1) space
 def fibonacci_variable(n):
 
     ## second, first
