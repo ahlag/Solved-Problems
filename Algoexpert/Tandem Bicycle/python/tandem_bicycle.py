@@ -15,6 +15,29 @@ def tandemBicycle(redShirtSpeeds, blueShirtSpeeds, fastest):
 
     return total_speed
 
+def tandemBicycle_algoexpert(redShirtSpeeds, blueShirtSpeeds, fastest):
+
+    redShirtSpeeds.sort()
+    blueShirtSpeeds.sort()
+
+    if not fastest:
+        reverseArrayInPlace(redShirtSpeeds)
+
+    total_speed = 0
+    for idx in range(len(redShirtSpeeds)):
+        rider1 = redShirtSpeeds[idx]
+        rider2 = blueShirtSpeeds[len(blueShirtSpeeds) - idx - 1]
+        total_speed += max(rider1, rider2)
+
+    return total_speed
+
+def reverseArrayInPlace(array):
+    start = 0
+    end = len(array) - 1
+    while start < end:
+        array[start], array[end] = array[end], array[start]
+        start += 1
+        end -= 1
 class TestProgram(unittest.TestCase):
     def test_case_1(self):
         redShirtSpeeds = [5, 5, 3, 9, 2]
