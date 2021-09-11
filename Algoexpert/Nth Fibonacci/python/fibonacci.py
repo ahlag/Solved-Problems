@@ -18,7 +18,7 @@ def fibonacci_memo(n, memoize={1: 0, 2: 1}):
     else:
         memoize[n] = fibonacci_memo(n-1, memoize) + fibonacci_memo(n-2, memoize)
         return memoize[n]
-    
+
 # O(n) time | O(1) space
 def fibonacci_array(n):
 
@@ -42,7 +42,7 @@ def fibonacci_variable(n):
         nextFib = first + second
         second = first
         first = nextFib
-		
+
     return first if n > 1 else second
 
 testable_functions = [
