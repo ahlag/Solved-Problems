@@ -13,10 +13,6 @@ def staircaseTraversal(height, maxSteps):
     for i in range(2, height+1):
         for step in range(1, maxSteps+1):
             dp[i] += dp[i-step]
-        # step = 1
-        # while step <= maxSteps and (i-step) >= 0:
-        #     dp[i] += dp[i-step]
-        #     step += 1
 
     return dp[height]
 
