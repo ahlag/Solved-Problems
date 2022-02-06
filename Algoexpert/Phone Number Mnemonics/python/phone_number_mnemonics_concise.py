@@ -10,7 +10,7 @@ def getAllMnemonics(phoneNumber, idx, digitLetters):
 
 	if idx == len(phoneNumber) - 1:
 		return DIGIT_LETTERS[phoneNumber[idx]]
-	
+
 	mnemonics = []
 	for code in DIGIT_LETTERS[phoneNumber[idx]]:
 		getMnemonics = getAllMnemonics(phoneNumber, idx+1, DIGIT_LETTERS)
@@ -18,7 +18,6 @@ def getAllMnemonics(phoneNumber, idx, digitLetters):
 			mnemonics.append(code + mnemonic)
 
 	return mnemonics
-
 
 DIGIT_LETTERS = {
 	"0": ["0"],
