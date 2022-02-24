@@ -10,67 +10,39 @@ struct ListNode {
 
 class Solution {
     public:
-        ListNode *swapPairs(ListNode *head) {
-        if(head == NULL || head->next == NULL)
-            return head;
-        ListNode* node = head;
-        ListNode* tmp = NULL;
-        head = head->next;
-        node->next = head->next;
-        head->next = node;
-        ListNode* pre = node;
-        node = node->next;
-        while(node != NULL && node->next != NULL){
-            tmp = node->next;
-            node->next = tmp->next;
-            tmp->next = node;
-            pre->next = tmp;
-            node = tmp->next->next;
-            pre = tmp->next;
+    ListNode* swapPairsIterative(ListNode *head) {
+        
+        if(!head || !head->next) return head; //If there are less than 2 nodes in the given nodes, then no need to do anything just return the list as it is.
+		
+        ListNode* dummyNode = new ListNode(-1);
+        
+        ListNode* prevNode=dummyNode;
+        ListNode* currNode=head;
+        
+        while(currNode && currNode->next){
+            prevNode->next = currNode->next;
+            currNode->next = prevNode->next->next;
+            prevNode->next->next = currNode;
+            
+            prevNode = currNode;
+            currNode = currNode->next;
         }
-
-        return head;
+        
+        return dummyNode->next;
     }
 
-    // ListNode *swapPairs(ListNode *head) {
-        
-    //     if(!head == !head->next) return head;
+    ListNode* swapPairsRecursive(ListNode* head){
 
-    //     ListNode* dummyNode = new ListNode(-1);
-
-    //     dummyNode->next = head;
-    //     ListNode* prevNode = dummyNode;
-        
-
-    //     while(head && head->next) {
+        // if head is NULL OR just having a single node, then no need to change anything 
+        if(head == NULL || head -> next == NULL) return head;
             
-    //         ListNode* currentNode = head;
-    //         ListNode* nextNode = head->next;
-
-    //         prevNode->next = nextNode;
-    //         currentNode->next = nextNode->next; 
-    //         nextNode->next = currentNode;
-            
-
-    //         prevNode = currentNode;
-    //         head = currentNode->next;
-    //     }
-
-    //     return dummyNode->next;
-    // }
-
-    ListNode* swapPairsRecursive(struct ListNode* head){
-
-        if ((!head) || (!head->next))
-            return head;
+        ListNode* temp; // temporary pointer to store head -> next
+        temp = head->next; // give temp what he want
         
-        struct ListNode* tmp = head;
-        head = head->next;
-        tmp->next = head->next;
-        head->next = tmp;
+        head->next = swapPairsRecursive(head->next->next); // changing links
+        temp->next = head; // put temp -> next to head
         
-        head->next->next = swapPairs(head->next->next);
-        return head;
+        return temp; // now after changing links, temp act as our head
     }
     
 };
@@ -94,9 +66,9 @@ int main() {
     }
     cout << endl;
 
-    Solution sol;
+    Solution solution;
     cout<<"After swap List: "<<endl;
-    p = sol.swapPairs(l);
+    p = solution.swapPairsIterative(l);
     while(p != NULL){
         cout<<p->val<<" ";
         p = p->next;
