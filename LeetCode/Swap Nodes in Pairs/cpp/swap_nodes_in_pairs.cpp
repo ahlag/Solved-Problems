@@ -34,7 +34,7 @@ class Solution {
     ListNode* swapPairsRecursive(ListNode* head){
 
         // if head is NULL OR just having a single node, then no need to change anything 
-        if(head == NULL || head -> next == NULL) return head;
+        if(head == NULL || head->next == NULL) return head;
             
         ListNode* temp; // temporary pointer to store head -> next
         temp = head->next; // give temp what he want
@@ -43,6 +43,20 @@ class Solution {
         temp->next = head; // put temp -> next to head
         
         return temp; // now after changing links, temp act as our head
+    }
+
+        ListNode* swapPairsRecursiveCYLik(ListNode* head){
+
+        // if head is NULL OR just having a single node, then no need to change anything 
+        if(head == NULL || head->next == NULL) return head;
+
+        ListNode* currentNode = head;
+        ListNode* nextNode = head->next; // give temp what he want
+        
+        currentNode->next = swapPairsRecursiveCYLik(nextNode->next);
+        nextNode->next = currentNode->next;
+        
+        return nextNode; // now after changing links, temp act as our head
     }
     
 };
@@ -68,7 +82,7 @@ int main() {
 
     Solution solution;
     cout<<"After swap List: "<<endl;
-    p = solution.swapPairsIterative(l);
+    p = solution.swapPairsRecursiveCYLik(l);
     while(p != NULL){
         cout<<p->val<<" ";
         p = p->next;
