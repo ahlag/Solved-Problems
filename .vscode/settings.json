@@ -8,6 +8,7 @@
         "iosfwd": "cpp",
         "iterator": "cpp",
         "unordered_set": "cpp",
-        "iostream": "cpp"
-    }
+        "iostream": "cpp",
+        "random": "cpp"
+    },
 }

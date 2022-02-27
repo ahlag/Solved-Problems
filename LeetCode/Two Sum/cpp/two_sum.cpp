@@ -7,7 +7,7 @@ class Solution {
         vector<int> twoSum(vector<int>& nums, int& target) {
             unordered_map<int, size_t>seen;
 
-            for(size_t i = 0; i < nums.size(); i++) {
+            for(int i = 0; i < nums.size(); i++) {
                 
                 if( seen.count((target - nums[i])) ) {
                     return {seen[target - nums[i]], i};
