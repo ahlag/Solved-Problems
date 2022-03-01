@@ -38,7 +38,7 @@ int main() {
     assert(res == expected);
 
     for(auto ele: res)
-        cout << ele << " ";
+        cout << res << " ";
 
     return 0;
 }
