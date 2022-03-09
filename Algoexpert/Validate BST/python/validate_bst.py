@@ -22,23 +22,23 @@ def validateBstIterative(tree):
 	if not tree:
 		return True
     
-	min_value = -float('inf')
-	max_value = float('inf')
+	minValue = -float('inf')
+	maxValue = float('inf')
 	
-	stack = [(tree, min_value, max_value)]
+	stack = [(tree, minValue, maxValue)]
 	
 	while stack:
 		
-		node, min_value, max_value = stack.pop()
+		node, minValue, maxValue = stack.pop()
 		
-		if node.value < min_value or node.value >= max_value:
+		if node.value < minValue or node.value >= maxValue:
 			return False
 			
 		if node.left:
-			stack.append((node.left, min_value, node.value))
+			stack.append((node.left, minValue, node.value))
 			
 		if node.right:
-			stack.append((node.right, node.value, max_value))
+			stack.append((node.right, node.value, maxValue))
 	
 	return True
 
