@@ -24,20 +24,6 @@ def is_unique_chars_algorithmic(string):
 
     return True
 
-# def is_unique_chars_algorithmic(string):
-    
-#     charset = set()
-#     charsetCount = 0
-    
-#     for char in string:
-#         if char not in charset:
-#             charset.add(char)
-#             charsetCount += 1
-
-#     return len(string) == charsetCount
-
-# def is_unique_bit_vector(string):
-
 def is_unique_chars_using_set(string: str) -> bool:
     charset = set()
     

@@ -26,7 +26,7 @@ public class AmbiguousMeasurements {
         for(int[] cup: measuringCups) {
             int cupLow = cup[0];
             int cupHigh = cup[1];
-            if (low <= cupLow && cupHigh <= high) {
+            if (low < cupLow && cupHigh < high) {
                 canMeasure = true;
                 break;
             }
