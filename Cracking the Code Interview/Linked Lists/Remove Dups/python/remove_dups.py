@@ -1,89 +1,74 @@
-# Remove the duplicate values from a linked list.
+import time
+from linkedlist import LinkedList
 
-import unittest
-from collections import defaultdict
+def remove_dups(ll):
+    current = ll.head
+    previous = None
+    seen = set()
 
-class Node():
-    def __init__(self, data, next):
-        self.data = data
-        self.next = next
-        
-def remove_duplicates(node):
-    
-    curr = node
-    dupVals = set()
-    
-    if curr:
-        dupVals.add(curr.data)
-        while curr.next:
-            
-            if curr.next.data in dupVals:
-                curr.next = curr.next.next
-            else:
-                dupVals.add(curr.next.data)
-                curr = curr.next
-    
-    return curr
-
-def remove_duplicates_v2(node):
-    
-    curr = node
-    dupVals = set()
-    prev = None
-
-    while curr:
-        
-        if curr.data in dupVals:
-            prev.next = curr.next
+    while current:
+        if current.value in seen:
+            previous.next = current.next
         else:
-            dupVals.add(curr.data)
-            prev = curr
-        curr = curr.next
-    
-    return prev
+            seen.add(current.value)
+            previous = current
+        current = current.next
+    ll.tail = previous
+    return ll
 
-def remove_duplicates_followup(node):
-    
-    curr = node
-    
-    while curr:
-        
-        runner = curr
-        
+def remove_dups_followup(ll):
+    runner = current = ll.head
+    while current:
+        runner = current
         while runner.next:
-            if runner.next.data == curr.data:
+            if runner.next.value == current.value:
                 runner.next = runner.next.next
             else:
                 runner = runner.next
-                
-        curr = curr.next
-        
-    return curr
+        current = current.next
+    ll.tail = runner
+    return ll
 
-class Test(unittest.TestCase):
-    def test_remove_duplicates(self):
-        head = Node(1,Node(3,Node(3,Node(1,Node(5,None)))))
-        remove_duplicates(head)
-        self.assertEqual(head.data, 1)
-        self.assertEqual(head.next.data, 3)
-        self.assertEqual(head.next.next.data, 5)
-        self.assertEqual(head.next.next.next, None)
-        
-    def test_remove_duplicates_v2(self):
-        head = Node(1,Node(3,Node(3,Node(1,Node(5,None)))))
-        remove_duplicates_v2(head)
-        self.assertEqual(head.data, 1)
-        self.assertEqual(head.next.data, 3)
-        self.assertEqual(head.next.next.data, 5)
-        self.assertEqual(head.next.next.next, None)
-        
-    def test_remove_duplicates_followup(self):
-        head = Node(1,Node(3,Node(3,Node(1,Node(5,None)))))
-        remove_duplicates_followup(head)
-        self.assertEqual(head.data, 1)
-        self.assertEqual(head.next.data, 3)
-        self.assertEqual(head.next.next.data, 5)
-        self.assertEqual(head.next.next.next, None)
+
+testable_functions = (remove_dups, remove_dups_followup)
+test_cases = (
+    ([], []),
+    ([1, 1, 1, 1, 1, 1], [1]),
+    ([1, 2, 3, 2], [1, 2, 3]),
+    ([1, 2, 2, 3], [1, 2, 3]),
+    ([1, 1, 2, 3], [1, 2, 3]),
+    ([1, 2, 3], [1, 2, 3]),
+)
+
+
+def test_remove_dupes():
+    for f in testable_functions:
+        start = time.perf_counter()
+        for _ in range(100):
+            for values, expected in test_cases:
+                expected = expected.copy()
+                deduped = f(LinkedList(values))
+                assert deduped.values() == expected
+
+                deduped.add(5)
+                expected.append(5)
+                assert deduped.values() == expected
+
+        duration = time.perf_counter() - start
+        print(f"{f.__name__} {duration * 1000:.1f}ms")
+
+
+def example():
+    ll = LinkedList.generate(100, 0, 9)
+    print(ll)
+    remove_dups(ll)
+    print(ll)
+
+    ll = LinkedList.generate(100, 0, 9)
+    print(ll)
+    remove_dups_followup(ll)
+    print(ll)
+
 
 if __name__ == "__main__":
-    unittest.main()
+    example()

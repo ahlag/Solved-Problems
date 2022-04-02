@@ -33,7 +33,6 @@ def zero_matrix_pythonic(matrix):
     matrix = [[0 if row.index(i) in indices else i for i in row] for row in matrix]
     return matrix
 
-
 class Test(unittest.TestCase):
 
     test_cases = [

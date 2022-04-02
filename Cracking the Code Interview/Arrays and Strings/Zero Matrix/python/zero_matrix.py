@@ -21,6 +21,16 @@ def zero_matrix(matrix):
 
     return matrix
 
+def zero_matrix_pythonic(matrix):
+    matrix = [["X" if x == 0 else x for x in row] for row in matrix]
+    indices = []
+    for idx, row in enumerate(matrix):
+        if "X" in row:
+            indices = indices + [i for i, j in enumerate(row) if j == "X"]
+            matrix[idx] = [0] * len(matrix[0])
+    matrix = [[0 if row.index(i) in indices else i for i in row] for row in matrix]
+    return matrix
+
 def set_zeroes(matrix):
     """
     Do not return anything, modify matrix in-place instead.
@@ -41,6 +51,38 @@ def set_zeroes(matrix):
         for j in range(col):
             if vertical[i] is True or horizontal[j] is True:
                 matrix[i][j] = 0
+                
+    return matrix
+
+def set_zeroes_space_efficient(matrix):
+    """
+    Do not return anything, modify matrix in-place instead.
+    """
+    
+    row, col = len(matrix), len(matrix[0])
+    is_col = False
+    for i in range(row):
+        
+        if matrix[i][0] == 0:
+            is_col = True
+        for j in range(1,col):
+            if matrix[i][j] == 0:
+                matrix[0][j] = 0
+                matrix[i][0] = 0
+                
+    for i in range(1,row):
+        for j in range(1,col):
+            if not matrix[i][0] or not matrix[0][j]:
+                matrix[i][j] = 0
+                
+    # See if the first row needs to be set to zero as well
+    if matrix[0][0] == 0:
+        for j in range(col):
+            matrix[0][j] = 0
+    # See if the first column needs to be set to zero as well        
+    if is_col:
+        for i in range(row):
+            matrix[i][0] = 0
                 
     return matrix
 
@@ -66,8 +108,9 @@ class Test(unittest.TestCase):
     ]
     testable_functions = [
         zero_matrix, 
-        # zero_matrix_pythonic
-        set_zeroes
+        zero_matrix_pythonic,
+        set_zeroes,
+        set_zeroes_space_efficient
     ]
 
     def test_zero_matrix(self):

@@ -1,5 +1,4 @@
 import random
-
 class LinkedListNode:
     def __init__(self, value, next_node=None, prev_node=None):
         self.value = value
@@ -8,8 +7,6 @@ class LinkedListNode:
 
     def __str__(self):
         return str(self.value)
-
-
 class LinkedList:
     def __init__(self, values=None):
         self.head = None
@@ -60,7 +57,6 @@ class LinkedList:
     @classmethod
     def generate(cls, k, min_value, max_value):
         return cls(random.choices(range(min_value, max_value), k=k))
-
 
 class DoublyLinkedList(LinkedList):
     def add(self, value):
