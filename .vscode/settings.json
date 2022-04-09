@@ -37,4 +37,7 @@
         "__nullptr": "cpp",
         "new": "cpp"
     },
+    "python.analysis.extraPaths": [
+        "./Cracking the Code Interview/CtCI-6th-Edition-Python-master/chapter_02"
+    ],
 }
