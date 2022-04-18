@@ -16,7 +16,7 @@ def hasSingleCycleBitArray(array):
 	
 	return sum(visited) == n
 
-# O(n) time | O(n) space
+# O(n) time | O(1) space
 def hasSingleCycleBitVector(array):
 
 	n = len(array)
