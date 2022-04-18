@@ -1,37 +1,36 @@
+import unittest
+
 # O(n) time | O(n) space
-def hasSingleCycle_visited_list(array):
+def hasSingleCycleBitArray(array):
 
-    n = jumps = len(array)
-    visited = [0] * n
+	n = len(array)
+	visited = [0] * n
+	curIndex = 0
 
-    curr_idx = 0
+	for _ in range(n):
+		
+		# graph traversal
+		nextIndex = (curIndex + array[curIndex]) % n
+		visited[nextIndex] = 1
+		curIndex = nextIndex
+	
+	return sum(visited) == n
 
-    while jumps >= 0:
+# O(n) time | O(n) space
+def hasSingleCycleBitVector(array):
 
-        interval = array[curr_idx]
+	n = len(array)
+	visited = 0
+	curIndex = 0
 
-        next_idx = curr_idx + interval
-        next_idx = next_idx % n
+	for _ in range(n):
+		
+		# graph traversal
+		nextIndex = (curIndex + array[curIndex]) % n
+		visited = visited | 1 << nextIndex
+		curIndex = nextIndex
 
-        print('jumps: ', jumps)
-        print('interval: ', interval)
-        print('next_idx: ', next_idx)
-
-        if next_idx > n - 1: 
-            next_idx = next_idx - n
-        elif next_idx < 0:
-            next_idx = n + next_idx
-            
-        print('corrected next_idx: ', next_idx)
-
-        visited[next_idx] = 1
-        curr_idx = next_idx
-        print(visited)
-        print()
-        jumps -= 1
-
-    print(visited)
-    return sum(visited) == n
+	return visited + 1 == 2 ** n
 
 # O(n) time | O(1) space
 def hasSingleCycle(array):
@@ -54,12 +53,11 @@ def getNextIdx(currentIdx, array):
     
     return nextIdx if nextIdx >= 0 else nextIdx + len(array)
 
-def main():
-    
-    array = [10, 11, -6, -23, -2, 3, 88, 909, -26]
-    
-    print(hasSingleCycle_visited_list(array))
-    print(hasSingleCycle(array))
-    
+class TestProgram(unittest.TestCase):
+    def test_case_1(self):
+        self.assertEqual(hasSingleCycle([10, 11, -6, -23, -2, 3, 88, 908, -26]), True)
+        self.assertEqual(hasSingleCycleBitArray([10, 11, -6, -23, -2, 3, 88, 908, -26]), True)
+        self.assertEqual(hasSingleCycleBitVector([10, 11, -6, -23, -2, 3, 88, 908, -26]), True)
+
 if __name__ == "__main__":
-    main()
+    unittest.main()
