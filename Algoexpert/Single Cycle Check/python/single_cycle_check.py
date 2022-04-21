@@ -30,6 +30,7 @@ def hasSingleCycleBitVector(array):
 		visited = visited | 1 << nextIndex
 		curIndex = nextIndex
 
+	# Added visited[0] 2^0 = 1
 	return visited + 1 == 2 ** n
 
 # O(n) time | O(1) space
