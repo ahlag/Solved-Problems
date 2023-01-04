@@ -18,6 +18,23 @@ class Solution {
             
         }
 
+        vector<int> twoSumMap(vector<int>& nums, int& target) {
+            vector<int> result;
+                unordered_map<int,int> seen;
+                int size = nums.size();
+                for(int i=0; i < size; i++) {
+                    int complement = target-nums[i];
+                    if( seen.find(complement) != seen.end()) {
+                        result.push_back(seen[complement]);
+                        result.push_back(i);
+                        break;
+                    }
+                    seen[nums[i]]=i;
+                    // seen.insert({nums[i], i});
+                }
+            return result;
+        }
+
 };
 
 
